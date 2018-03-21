@@ -52,6 +52,10 @@ public class AppManager {
         return webDriver.getCurrentUrl();
     }
 
+    public String getTitle() {
+        return webDriver.getTitle();
+    }
+
     public void quit() {
         System.out.println(webDriver + " closed");
         webDriver.quit();
