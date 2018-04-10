@@ -24,7 +24,7 @@ public class Driver {
 
     private static void setDriverPaths() {
         String folder = null;
-        boolean isWindows = false;
+        var isWindows = false;
         if (OS.startsWith("Linux")) folder = "linux";
         else if (OS.startsWith("Windows")) {
             isWindows = true;
@@ -53,7 +53,7 @@ public class Driver {
             drivers.put(1, driver);
             return driver;
         }
-        int random = new Random().nextInt(drivers.size());
+        var random = new Random().nextInt(drivers.size());
         driver = drivers.get(random);
         drivers.put(random, driver);
         return driver;

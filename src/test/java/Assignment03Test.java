@@ -3,22 +3,19 @@ import com.google.common.collect.Streams;
 import driver.Driver;
 import driver.DriverType;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
+import java.text.DecimalFormat;
 
 public class Assignment03Test {
     private AppManager app;
 
     @BeforeClass
     public void initialize() {
-        app = new AppManager(Driver.getNewDriver(DriverType.CHROME, false));
+        app = new AppManager(Driver.getNewDriver(DriverType.CHROME, true));
     }
 
     @AfterClass
@@ -35,7 +32,7 @@ public class Assignment03Test {
 
     @Test(priority = 2)
     public void discardPopupIfFound() {
-        By popupLocator = By.className("_32LSmx");
+        var popupLocator = By.className("_32LSmx");
         if (app.findElement(popupLocator) != null) {
             app.click(By.xpath("//button[text()='✕']"));
         }
@@ -51,12 +48,16 @@ public class Assignment03Test {
 
     @Test(priority = 4)
     public void printAllLinks() {
-        List<WebElement> links = app.findElements(By.tagName("a"));
+        var links = app.findElements(By.tagName("a"));
+        var formatter = new DecimalFormat("0000");
         System.out.println("All links list (filterd to valid URLs only):\n");
+        System.out.println("---- ==> ----");
+        System.out.println("No.  ==> Link");
+        System.out.println("---- ==> ----");
         Streams.mapWithIndex(
                 links.stream()
                         .map(link -> link.getAttribute("href"))
-                        .filter(link -> link.startsWith("http")), (link, index) -> (index + 1) + " ==> " + link)
+                        .filter(link -> link.startsWith("http")), (link, index) -> (formatter.format(index + 1)) + " ==> " + link)
                 .forEach(System.out::println);
     }
 }

@@ -22,7 +22,7 @@ public class Assignment01Test {
 
     @Test
     public void amazonTest() {
-        String expectedTitle = "Amazon.com: Online Shopping for Electronics, Apparel, Computers, * * * Books, DVDs & more";
+        var expectedTitle = "Amazon.com: Online Shopping for Electronics, Apparel, Computers, * * * Books, DVDs & more";
         app.maximize()
                 .goTo("https://www.amazon.com/")
                 .isTitleMatch(expectedTitle);
