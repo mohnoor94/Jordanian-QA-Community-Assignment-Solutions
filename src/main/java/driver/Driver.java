@@ -15,12 +15,30 @@ public class Driver {
     private static Map<Integer, WebDriver> drivers = new HashMap<>();
     private static DriverType defaultDriverType = DriverType.CHROME;
     private static boolean defaultHeadlessMode = false;
+    private static final String OS = System.getProperty("os.name");
+    private static final String PROJECT_DIRECTORY = System.getProperty("user.dir");
 
     static {
+        setDriverPaths();
+    }
+
+    private static void setDriverPaths() {
+        String folder = null;
+        boolean isWindows = false;
+        if (OS.startsWith("Linux")) folder = "linux";
+        else if (OS.startsWith("Windows")) {
+            isWindows = true;
+            folder = "windows";
+        } else {
+            System.out.println("We are sorry but only Windows and Linux are supported right now.");
+            System.exit(0);
+        }
         System.setProperty("webdriver.chrome.driver",
-                System.getProperty("user.dir") + File.separator + "drivers" + File.separator + "chromedriver.exe");
+                PROJECT_DIRECTORY + File.separator + "drivers" + File.separator + folder
+                        + File.separator + "chromedriver" + (isWindows ? ".exe" : ""));
         System.setProperty("webdriver.gecko.driver",
-                System.getProperty("user.dir") + File.separator + "drivers" + File.separator + "geckodriver.exe");
+                PROJECT_DIRECTORY + File.separator + "drivers" + File.separator + folder
+                        + File.separator + "geckodriver" + (isWindows ? ".exe" : ""));
     }
 
     public static WebDriver getNewDriver(DriverType driverType, boolean headless) {

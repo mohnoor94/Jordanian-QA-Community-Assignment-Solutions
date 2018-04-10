@@ -1,6 +1,11 @@
 package base;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class AppManager {
     private WebDriver webDriver;
@@ -42,6 +47,35 @@ public class AppManager {
     public AppManager printCurrentUrl() {
         System.out.println(getCurrentUrl());
         return this;
+    }
+
+    public WebElement findElement(By locator) {
+        try {
+            return webDriver.findElement(locator);
+        } catch (NoSuchElementException e) {
+            return null;
+        }
+    }
+
+    public List<WebElement> findElements(By locator) {
+        return webDriver.findElements(locator);
+    }
+
+    public boolean click(By locator) {
+        WebElement element = findElement(locator);
+        if (element != null) {
+            element.click();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isPageContains(String value) {
+        return getPageContents().contains(value);
+    }
+
+    public String getPageContents() {
+        return webDriver.getPageSource();
     }
 
     public boolean assertTitle(String title) {
