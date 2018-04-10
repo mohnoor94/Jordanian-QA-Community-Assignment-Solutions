@@ -1,5 +1,4 @@
-## Simple Automation Example using Selenium
-### Jordanian QA Community - Assignment Solutions
+### Jordanian QA Community - Automation Assignment Solutions
 * Please check [this url](https://github.com/azizehHasan/Jordanian-QA-Community/) for assignments.
 * Solutions can be found under `src/test/java` folder.
 * Please note that the project:
